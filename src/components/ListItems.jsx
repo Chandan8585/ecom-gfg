@@ -1,6 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const ListItems = ({data}) => {
+    const [count, setCount] = useState(0);
+
+    // const Clickhandler= (e)=> {
+    //   e.preventDefault();
+  
+    // }
+  const Incrementcounter = ()=> {
+    if(count < 5){
+       return  setCount(count+1);
+    }
+  
+  }
+  const Decrementcounter = ()=> {
+    if(count>0){
+       setCount(count-1);
+    }
+  }
+  
+
   return (
     <div className='item-wrapper'>
       <div className="img">
@@ -13,7 +32,19 @@ const ListItems = ({data}) => {
       <div className="product-detail">
         {data.detail}
       </div>
-        <button className='add-to-cart'>Add To Cart</button>
+      <div>
+        {
+           count < 1?
+      <button className='add-to-cart' onClick={Incrementcounter}>Add TO Cart</button>
+      :
+      <div>
+      <button onClick={Incrementcounter}>+</button> 
+      <span>{count}</span>
+     <button onClick={Decrementcounter}>-</button>
+     </div>
+        }
+      </div>
+
       </div>
     </div>
   )

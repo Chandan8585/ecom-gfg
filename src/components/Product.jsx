@@ -1,35 +1,56 @@
 import React, { useState } from 'react'
 import ListItems from './ListItems'
+import Forms from './Forms';
 
 const Product = () => {
   // const [title, setTitle] = useState("");
   // const [price, setPrice] = useState(0);
   // const [discountedPrice, setDiscountedPrice] = useState(0);
-  const [item, setItem] = useState({
+  const [item, setItem] = useState([
+    {
+    id: 0,
     title: "What a snack",
     price: 450,
     discountedPrice: 340,
     img: "./snack.jpg",
     detail: "Good Food To have"
-});
+}, 
+{
+  id: 1,
+  title: "What a pasta",
+  price: 4500,
+  discountedPrice: 3400,
+  img: "./snack.jpg",
+  detail: "Good Food To have at Night"
+},
+{
+  id: 2,
+  title: "What a pasta",
+  price: 4500,
+  discountedPrice: 3400,
+  img: "./snack.jpg",
+  detail: "Good Food To have at Night"
+},
+{
+  id: 3,
+  title: "What a nastaasta",
+  price: 400,
+  discountedPrice: 400,
+  img: "./snack.jpg",
+  detail: "Good Food To have at Night"
+}
 
-// const handleTitle = (event)=> {
-//     setTitle(event.target.value);
-// }
 
-// const handlePrice = event=> {
-//   setPrice(event.target.value);
-// }
-// const handleDiscountedPrice = event=> {
-//   setDiscountedPrice(event.target.value);
-// }
+]);
+
+
 const Inputhandler= (event)=> {
-     event.preventDefault();
-     if(item.discountedPrice > item.price){
-      alert("Discounted Price cannot be greater than price")
-      return;
-     }
-    
+  event.preventDefault();
+  if(item.discountedPrice > item.price){
+   alert("Discounted Price cannot be greater than price")
+   return;
+  }
+ 
 
 }
 
@@ -43,51 +64,13 @@ const handleInput= event => {
 
   return (
     <div className='product'>
-      <form onSubmit={Inputhandler} >
-     <label htmlFor="Title">
-      Title
-      </label>
-      <input 
-        onChange={handleInput}
-      name="title"
-      type="text"
-       value={item.title} 
-       
-       />
-      <label htmlFor="price">
-      <h2>Original price</h2>
-      <input 
-        onChange={handleInput}
-      name="price"
-      type="number" value={item.price}
-      //  onChange={handlePrice}
-       />
-      </label>
-      <label htmlFor="Discounted Price">
-      <h2>Discounted Price</h2>
-      <input 
-      name="discountedPrice"
-      type="text"  value={item.discountedPrice} 
-      onChange={handleInput}
-      />
-      </label>
-      <label htmlFor="Img">
-      <h2>Img</h2>
-      </label>
-
-      <input 
-        onChange={handleInput}
-      name="img"
-      type="text" value={item.img}/>
-      <div>
-      <button>Update</button>
-      </div>
+      {/* <Forms item={item} handleInput= {handleInput} Inputhandler={Inputhandler}/> */}
       
-      </form>
-      <ListItems data={
-       item}
+          {  item.map((e, id) =>
 
-      />
+                 (<ListItems key={id} data={e}/>))
+          }
+
 
     </div>
   )
