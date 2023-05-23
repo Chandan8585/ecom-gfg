@@ -1,76 +1,78 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ListItems from './ListItems'
-import Forms from './Forms';
+import axios from "axios"
+// import Forms from './Forms';
 
 const Product = () => {
+  // const [, setItem] = useState();
   // const [title, setTitle] = useState("");
   // const [price, setPrice] = useState(0);
   // const [discountedPrice, setDiscountedPrice] = useState(0);
-  const [item, setItem] = useState([
-    {
-    id: 0,
-    title: "What a snack",
-    price: 450,
-    discountedPrice: 340,
-    img: "./snack.jpg",
-    detail: "Good Food To have"
-}, 
-{
-  id: 1,
-  title: "What a pasta",
-  price: 4500,
-  discountedPrice: 3400,
-  img: "./snack.jpg",
-  detail: "Good Food To have at Night"
-},
-{
-  id: 2,
-  title: "What a pasta",
-  price: 4500,
-  discountedPrice: 3400,
-  img: "./snack.jpg",
-  detail: "Good Food To have at Night"
-},
-{
-  id: 3,
-  title: "What a nastaasta",
-  price: 400,
-  discountedPrice: 400,
-  img: "./snack.jpg",
-  detail: "Good Food To have at Night"
-}
+  const [items, setItems] = useState([]);
 
+// useEffect(()=> {
+//      axios.get('https://ecom-gfg-default-rtdb.firebaseio.com/.json')
+//      .then(response => {
+//       const data = response.data;
+//       const transformData = data.map((item, index) => {
+//         return {
+//            ...item,
+//            id: index
+//         }
+//       });
+//       setItem(transformData);
+// })
+// .catch(error => {
+//   console.log(error)
+// })
 
-]);
+// },[]);
 
+useEffect(() => {
+  axios.get('https://ecom-gfg-default-rtdb.firebaseio.com/items.json')
+    .then(response => {
+      const data = response.data;
+      const transformData = Object.values(data).map((item, index) => ({
+        ...item,
+        id: index
+      }));
+      setItems(transformData);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}, []);
 
-const Inputhandler= (event)=> {
-  event.preventDefault();
-  if(item.discountedPrice > item.price){
-   alert("Discounted Price cannot be greater than price")
-   return;
-  }
+// const Inputhandler= (event)=> {
+//   event.preventDefault();
+//   if(item.discountedPrice > item.price){
+//    alert("Discounted Price cannot be greater than price")
+//    return;
+//   }
  
 
-}
+// }
 
-const handleInput= event => {
-  // event.preventDefault();
-  setItem({
-   ...item,
-   [event.target.name] : event.target.value
-    })
-}
+// const handleInput= event => {
+//   // event.preventDefault();
+//   setItem({
+//    ...item,
+//    [event.target.name] : event.target.value
+//     })
+// }
 
   return (
     <div className='product'>
       {/* <Forms item={item} handleInput= {handleInput} Inputhandler={Inputhandler}/> */}
       
-          {  item.map((e, id) =>
+          {/* {  item.map((e, id) =>
 
-                 (<ListItems key={id} data={e}/>))
-          }
+                 (<ListItems key={e.id} data={e}/>))
+          } */}
 
+{items.map((item) => (
+  <ListItems key={item.id} data={item} />
+))}
 
     </div>
   )

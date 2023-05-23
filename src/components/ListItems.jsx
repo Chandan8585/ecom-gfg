@@ -23,7 +23,7 @@ const ListItems = ({data}) => {
   return (
     <div className='item-wrapper'>
       <div className="img">
-        <img src={data.img} alt="" width={300}/>
+        <img src={data.thumbnail} alt="" width={300}/>
       </div>
       <div className="details">
         <div className="product-name">{data.title}</div>
