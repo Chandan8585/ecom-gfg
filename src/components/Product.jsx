@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import ListItems from './ListItems'
 import axios from "axios"
+import Loader from '../UI/Loader'
+
 // import Forms from './Forms';
 
 const Product = () => {
+  const [loader, setLoader] = useState(true);
   // const [, setItem] = useState();
   // const [title, setTitle] = useState("");
   // const [price, setPrice] = useState(0);
@@ -29,19 +32,28 @@ const Product = () => {
 // },[]);
 
 useEffect(() => {
-  axios.get('https://ecom-gfg-default-rtdb.firebaseio.com/items.json')
-    .then(response => {
+  async function fetchItems(){
+try{
+  const response =await axios.get('https://ecom-gfg-default-rtdb.firebaseio.com/items.json')
       const data = response.data;
-      const transformData = Object.values(data).map((item, index) => ({
+      const transformData = data.map((item, index) => {
+       return{
         ...item,
         id: index
-      }));
-      setItems(transformData);
-    })
-    .catch(error => {
-      console.log(error);
+      }
     });
-}, []);
+      setItems(transformData);
+    }
+    catch(error){
+      console.log(error);
+    }
+  finally{
+      setLoader(false)
+    
+  }
+}
+  fetchItems();
+} , []);
 
 // const Inputhandler= (event)=> {
 //   event.preventDefault();
@@ -62,6 +74,7 @@ useEffect(() => {
 // }
 
   return (
+    <>
     <div className='product'>
       {/* <Forms item={item} handleInput= {handleInput} Inputhandler={Inputhandler}/> */}
       
@@ -75,6 +88,8 @@ useEffect(() => {
 ))}
 
     </div>
+    {loader && <Loader/>}
+    </>
   )
 }
 
