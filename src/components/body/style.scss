@@ -1,0 +1,11 @@
+.product-list{
+
+    padding: 60px;
+}
+.product-list-wrapper{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr ;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   row-gap: 20px;
+   
+}

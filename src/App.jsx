@@ -1,14 +1,19 @@
-// import { useState } from 'react'
-import './App.css'
-import Navbar from './components/Navbar'
-import Product from './components/Product'
+
+import './App.scss'
+import Body from './components/body/Body'
+
+import Navbar from './components/navbar/Navbar'
+import SubHeader from './components/subheader/SubHeader'
+
 function App() {
 
   
   return (
     <div>          
-      <Navbar/>
-      <Product/>
+  <Navbar/>
+<SubHeader/>
+  <Body/>
+
  </div>
   )
 }
