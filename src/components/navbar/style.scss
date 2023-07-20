@@ -100,4 +100,18 @@ li{
     width: 200px;
     align-items: center;
     margin-top: 4px;
+  
+
+    .cart-counter{
+      background-color: red;
+      color: white;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 12px;
+      right: 255px;
+      font-weight: 900;
+      border-radius: 50%;
+      text-align: center;
+    }
 }

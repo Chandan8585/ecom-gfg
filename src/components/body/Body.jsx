@@ -5,9 +5,10 @@ import axios from 'axios';
 import "./style.scss"
 
 
-const Body = () => {
+const Body = ({onAddItem, onRemoveItem})  => {
     const [items, setItems] = useState([]);
     const [loader, setLoader] = useState(true);
+    const [presentItems, setPresentItems] = useState([]);
 
     useEffect(()=>{
       async function fetchItems(){
@@ -33,6 +34,22 @@ const Body = () => {
       
       fetchItems();
     }, [])
+    const handleAddItem = id =>{
+      if(presentItems.indexOf(id) > -1){
+        return;
+      }
+      setPresentItems([...presentItems,id])
+       console.log(id);
+       onAddItem();
+    }
+    const handleRemoveItem = id =>{
+      let index = presentItems.indexOf(id)
+      if(index > -1){
+        setPresentItems([...presentItems.splice(index,1)]);
+        onRemoveItem();
+      }
+      
+    }
   return (
     <div>
       <div className="product-list">
@@ -40,7 +57,7 @@ const Body = () => {
           {
             items.map((item)=> {
               return (
-                <ProductContainer key={item.id} item={item}/>
+                <ProductContainer onAdd={handleAddItem} onRemove = {handleRemoveItem} key={item.id} item={item}/>
               )
             } )
           }

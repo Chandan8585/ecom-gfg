@@ -2,17 +2,22 @@ import React, { Fragment, useState } from 'react'
 import "./style.scss"
 import Modals from '../../utils/Modals';
 
-const ProductContainer = ({key , item }) => {
+const ProductContainer = ({item , onAdd, onRemove}) => {
     const [showModal, setShowModal] = useState(false);
     const [ count, setCount] = useState(0);
-    // const [showCounter, setShowCounter] = useState(false);
      function Increment(event){
-            event.stopPropagation();
+      event.stopPropagation();
+            onAdd(item.id);
        setCount( count + 1);
      }
-    function Decrement(){
+    function Decrement(event){
+      event.stopPropagation();
         if(count === 0){
+        
             return;
+        }
+        if(count==1){
+          onRemove(item.id);
         }
         setCount(count-1);
     }
@@ -25,7 +30,7 @@ const ProductContainer = ({key , item }) => {
     }
   return (
     <Fragment>
-    <div className="card card-vertical d-flex direction-column relative shadow" data-id= {key} 
+    <div className="card card-vertical d-flex direction-column relative shadow"  
     
     >
     <div className="card-image-container">
